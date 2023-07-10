@@ -10,12 +10,29 @@ class BaseModel():
     """This class is the foundation of a great program.
     """
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """This method initantializes three public instance attributes.
+
+        Args:
+            *arg(tuple): This is a tuple that contains parameters
+            **kwargs(dict): This is a dictionary that contains parameterd and
+            their values.
         """
         self.id = str(uuid4())
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
+
+        if kwargs != {}:
+            for key, val in kwargs.items():
+                if key == "__class__":
+                    continue
+                if key == "created_at" or key == "updated_at":
+                    self.__dict__[key] = datetime.fromisoformat(val)
+                else:
+                    self.__dict__[key] = val
+        else:
+            self.id = str(uuid4())
+            self.created_at = datetime.now()
 
     def __str__(self):
         """This is the __str__ method.
