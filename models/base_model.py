@@ -4,6 +4,7 @@
 """
 from datetime import datetime
 from uuid import uuid4
+import models
 
 
 class BaseModel():
@@ -18,10 +19,6 @@ class BaseModel():
             **kwargs(dict): This is a dictionary that contains parameterd and
             their values.
         """
-        self.id = str(uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
-
         if kwargs != {}:
             for key, val in kwargs.items():
                 if key == "__class__":
@@ -33,6 +30,8 @@ class BaseModel():
         else:
             self.id = str(uuid4())
             self.created_at = datetime.now()
+            self.updated_at = datetime.now()
+            models.storage.new(self)
 
     def __str__(self):
         """This is the __str__ method.
@@ -45,6 +44,7 @@ class BaseModel():
     def save(self):
         """This method updates the time of ``updated_at`` when it is called.
         """
+        models.storage.save()
         self.updated_at = datetime.now()
 
     def to_dict(self):
