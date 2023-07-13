@@ -10,6 +10,7 @@ from models.user import User
 class HBNBCommand(cmd.Cmd):
     """This class denotes the command interpreter for a website clone"""
     prompt = "(hbnb) "
+    classes = ["BaseModel", "User"]
 
     def do_quit(self, args):
         """A command to exit the command interpreter"""
@@ -36,7 +37,7 @@ class HBNBCommand(cmd.Cmd):
         if arg == "":
             print("** class name missing **")
 
-        elif arg != "BaseModel":
+        elif arg not in HBNBCommand.classes:
             print("** class doesn't exist **")
 
         else:
@@ -58,7 +59,7 @@ class HBNBCommand(cmd.Cmd):
         if arg == "":
             print("** class name missing **")
 
-        elif info[0] != "BaseModel":
+        elif info[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
 
         elif len(info) < 2:
@@ -89,7 +90,7 @@ class HBNBCommand(cmd.Cmd):
         if arg == "":
             print("** class name missing **")
 
-        elif sep[0] != "BaseModel":
+        elif sep[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
 
         elif len(sep) < 2:
@@ -118,7 +119,7 @@ class HBNBCommand(cmd.Cmd):
         my_list = []
         di = storage.all()
 
-        if arg != "BaseModel" and arg != "":
+        if arg not in HBNBCommand.classes and arg == "":
             print("** class doesn't exist **")
 
         else:
@@ -141,7 +142,7 @@ class HBNBCommand(cmd.Cmd):
         if arg == "":
             print("** class name missing **")
 
-        elif info[0] != "BaseModel":
+        elif info[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
 
         elif len(info) < 2:

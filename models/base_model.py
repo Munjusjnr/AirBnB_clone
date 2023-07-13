@@ -39,7 +39,7 @@ class BaseModel():
         Return:
             str: Information on the class.
         """
-        return f"[{__class__.__name__}] ({self.id}) {self.__dict__}"
+        return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
 
     def save(self):
         """This method updates the time of ``updated_at`` when it is called.
