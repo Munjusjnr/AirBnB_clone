@@ -10,7 +10,8 @@ from models.user import User
 class HBNBCommand(cmd.Cmd):
     """This class denotes the command interpreter for a website clone"""
     prompt = "(hbnb) "
-    classes = ["BaseModel", "User"]
+    classes = ["BaseModel", "User", "Review", "State", "City", "Amenity",
+               "Place"]
 
     def do_quit(self, args):
         """A command to exit the command interpreter"""

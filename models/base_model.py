@@ -63,5 +63,5 @@ class BaseModel():
 
             my_dict.update({key: value})
 
-        my_dict.update({"__class__": f"{__class__.__name__}"})
+        my_dict.update({"__class__": f"{self.__class__.__name__}"})
         return my_dict
