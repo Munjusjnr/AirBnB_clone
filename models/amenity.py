@@ -7,6 +7,6 @@ class Amenity(BaseModel):
     """Defining a class amenity
 
     Public Attributes:
-        name: name of amenites needed
+        name: name of amenites available
     """
     name = ""
