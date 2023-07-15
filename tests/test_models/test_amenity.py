@@ -8,13 +8,24 @@ from models.base_model import BaseModel
 class TestAmenity(unittest.TestCase):
     """Testing the class amenity"""
     def test_amenity_inherits_from_base_model(self):
-        """Testng class city is a subclass of basemodel"""
+        """Testng class amenity is a subclass of basemodel"""
         self.assertTrue(issubclass(Amenity, BaseModel))
 
     def test_amenity_attributes_default_mode(self):
         """Testing the default mode of the class each attribute"""
         amenity = Amenity()
         self.assertEqual(amenity.name, "")
+
+    def test_init_Amenity(self):
+        """Testing if the object is Amenity"""
+        object_check = Amenity()
+        self.assertIsInstance(object_check, Amenity)
+
+    def test_id(self):
+        """Testing that id to be unique"""
+        first_id = Amenity()
+        second_id = Amenity()
+        self.assertNotEqual(first_id, second_id)
 
     def test_amenity_attributes_assigned(self):
         """Testing the attributes of the class amenity being assigned info"""

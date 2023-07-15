@@ -23,6 +23,17 @@ class TestState(unittest.TestCase):
 
         self.assertEqual(state.name, "Hawaii")
 
+    def test_init_State(self):
+        """Testing if the object is State"""
+        object_check = State()
+        self.assertIsInstance(object_check, State)
+
+    def test_id(self):
+        """Testing that id to be unique"""
+        first_id = State()
+        second_id = State()
+        self.assertNotEqual(first_id, second_id)
+
     def test_state_to_dict(self):
         """Testing amenity to dict mode"""
         state = State()

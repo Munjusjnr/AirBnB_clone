@@ -33,6 +33,17 @@ class TestUser(unittest.TestCase):
         self.assertEqual(user.first_name, "lee")
         self.assertEqual(user.last_name, "kramps")
 
+    def test_init_User(self):
+        """Testing if the object is User"""
+        object_check = User()
+        self.assertIsInstance(object_check, User)
+
+    def test_id(self):
+        """Testing that id to be unique"""
+        first_id = User()
+        second_id = User()
+        self.assertNotEqual(first_id, second_id)
+
     def test_user_to_dict(self):
         """Testing user attributes in a dictionary"""
         user = User()

@@ -26,6 +26,17 @@ class TestCity(unittest.TestCase):
         self.assertEqual(city.state_id, "GTHstate-id")
         self.assertEqual(city.name, "Gotham City")
 
+    def test_init_City(self):
+        """Testing if the object is City"""
+        object_check = City()
+        self.assertIsInstance(object_check, City)
+
+    def test_id(self):
+        """Testing that id to be unique"""
+        first_id = City()
+        second_id = City()
+        self.assertNotEqual(first_id, second_id)
+
     def test_city_to_dict(self):
         """Testing city to dict mode"""
         city = City()
