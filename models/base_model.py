@@ -44,8 +44,8 @@ class BaseModel():
     def save(self):
         """This method updates the time of ``updated_at`` when it is called.
         """
-        models.storage.save()
         self.updated_at = datetime.now()
+        models.storage.save()
 
     def to_dict(self):
         """This method creates a dictionary of the this class and it's
@@ -63,5 +63,5 @@ class BaseModel():
 
             my_dict.update({key: value})
 
-        my_dict.update({"__class__": f"{self.__class__.__name__}"})
+        my_dict.update({"__class__": self.__class__.__name__})
         return my_dict

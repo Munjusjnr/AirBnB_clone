@@ -20,7 +20,7 @@ class FileStorage():
         __objects: An empty dictionary that will store all objects name-id
     """
 
-    __file_path = "/AirBnB_clone/file.json"
+    __file_path = "file.json"
     __objects = {}
 
     def all(self):
@@ -30,7 +30,7 @@ class FileStorage():
     def new(self, obj):
         """Sets in __objects the obj with key <obj class name>.id"""
         key = f"{obj.__class__.__name__}.{obj.id}"
-        FileStorage.__objects[key] = obj
+        FileStorage.__objects.update({key: obj})
 
     def save(self):
         """Serializes __objects to the json file"""
