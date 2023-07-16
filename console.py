@@ -20,7 +20,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_quit(self, args):
         """A command to exit the command interpreter"""
-        raise SystemExit
+        return True
 
     def do_EOF(self, args):
         """Recognizing end of line when command interpreter is executed"""
@@ -130,7 +130,8 @@ class HBNBCommand(cmd.Cmd):
 
         else:
             for key in di.keys():
-                my_list.append(f"{di[key]}")
+                if arg in key:
+                    my_list.append(f"{di[key]}")
 
             print(my_list)
 
