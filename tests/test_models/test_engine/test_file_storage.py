@@ -4,6 +4,7 @@ import unittest
 from models import storage
 from models.city import City
 from models.review import Review
+import pep8
 import os
 import json
 import models
@@ -64,6 +65,29 @@ class TestFileStorage(unittest.TestCase):
         self.storage.new(obj)
         self.storage.save()
         self.assertTrue(os.path.isfile(self.file_path))
+
+    def test_pep8(self):
+        """Test that the code conforms to PEP8."""
+        pep8style = pep8.StyleGuide(quiet=True)
+        path = "tests/test_models/test_engine/test_file_storage.py"
+        res = pep8style.check_files(["models/engine/file_storage.py", path])
+        self.assertEqual(res.total_errors, 0, "PEP8 style errors found")
+
+    def test_instance_of_file_storage(self):
+        """Test if the instance is of the FileStorage class"""
+        self.assertIsInstance(self.storage, FileStorage)
+
+    def test_attribute_types(self):
+        """Test if the attributes have the correct types"""
+        self.assertIsInstance(self.storage._FileStorage__file_path, str)
+        self.assertIsInstance(self.storage._FileStorage__objects, dict)
+
+    def test_updated_at_updates_after_save(self):
+        """Test if updated_at attribute updates after calling instance"""
+        obj = BaseModel()
+        initial_updated_at = obj.updated_at
+        obj.save()
+        self.assertNotEqual(initial_updated_at, obj.updated_at)
 
 
 if __name__ == "__main__":
