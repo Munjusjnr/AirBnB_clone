@@ -27,7 +27,6 @@ class TestFileStorage(unittest.TestCase):
             os.remove(self.file_path)
         except FileNotFoundError:
             pass
-        FileStorage._FileStorage__objects = {}
 
     def test_all(self):
         """Test if all() returns the correct dictionary of objects"""
@@ -106,12 +105,6 @@ class TestFileStorage(unittest.TestCase):
         self.assertIn(f"{obj1.__class__.__name__}.{obj1.id}", data)
         self.assertIn(f"{obj2.__class__.__name__}.{obj2.id}", data)
         self.assertIn(f"{obj3.__class__.__name__}.{obj3.id}", data)
-
-    def test_all(self):
-        """Testing for the all method"""
-        f = FileStorage()
-
-        self.assertIsInstance(f.all(), dict)
 
 
 if __name__ == "__main__":
