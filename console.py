@@ -170,14 +170,13 @@ class HBNBCommand(cmd.Cmd):
             print("** value missing **")
 
         else:
-            va = info[3].split('"')
+            va = info[3].replace('"', "")
             my_dict = my_dict[f"{info[0]}.{info[1]}"]
-            if isinstance(va[1], int):
-                my_dict.__dict__[info[2]] = int(va[1])
-            if isinstance(va[1], float):
-                my_dict.__dict__[info[2]] = float(va[1])
-            else:
-                my_dict.__dict__[info[2]] = va[1]
+            try:
+                typ = type(my_dict.__class__.__dict__[info[2]])
+                my_dict.__dict__[info[2]] = typ(va)
+            except KeyError:
+                my_dict.__dict__[info[2]] = va
             my_dict.__dict__['updated_at'] = datetime.now()
             storage.save()
 
