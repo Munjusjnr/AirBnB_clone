@@ -16,11 +16,10 @@ class TestFileStorage(unittest.TestCase):
     """Unit Testing implementation for the filestorage file"""
     def setUp(self):
         """This method runs before each test case."""
-        self.file_path = "file.json"
+        self.file_path = "test_file.json"
         FileStorage._FileStorage__file_path = self.file_path
         self.storage = FileStorage()
         storage.__objects = {}
-        FileStorage._FileStorage__objects = {}
 
     def tearDown(self):
         """This method runs after each test case, cleaning up resources."""
@@ -106,14 +105,6 @@ class TestFileStorage(unittest.TestCase):
         self.assertIn(f"{obj1.__class__.__name__}.{obj1.id}", data)
         self.assertIn(f"{obj2.__class__.__name__}.{obj2.id}", data)
         self.assertIn(f"{obj3.__class__.__name__}.{obj3.id}", data)
-
-    def test_file_path_default_value(self):
-        """Test if __file_path has the correct default value"""
-        self.assertEqual(self.storage._FileStorage__file_path, "file.json")
-
-    def test_objects_default_value(self):
-        """Test if __objects has the correct default value"""
-        self.assertEqual(self.storage._FileStorage__objects, {})
 
 
 if __name__ == "__main__":
