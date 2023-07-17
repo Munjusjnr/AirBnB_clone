@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """Entry point for the command interpreter and the inclusion of modules"""
 import cmd
-import re
 from models.base_model import BaseModel
 from models import storage
 from datetime import datetime
@@ -51,10 +50,18 @@ class HBNBCommand(cmd.Cmd):
 
         else:
             try:
-                line1 = line.replace("()", "")
-                my_list = line1.split(".")
-                meth = getattr(self, 'do_' + my_list[1])
-                return meth(my_list[0])
+                if '("' not in line:
+                    line1 = line.replace('()', '')
+                    my_list = line1.split(".")
+                    meth = getattr(self, 'do_' + my_list[1])
+                    return meth(my_list[0])
+                else:
+                    ln = line.replace('(', '').replace('"', ' ').replace(')',
+                                                                         '')
+                    my_ln = ln.split(".")
+                    nxt = my_ln[1].split()
+                    nw_meth = getattr(self, 'do_' + nxt[0])
+                    return nw_meth(my_ln[0] + ' ' + nxt[1])
             except Exception as e:
                 pass
             try:
@@ -62,7 +69,6 @@ class HBNBCommand(cmd.Cmd):
             except AttributeError:
                 return self.default(line)
             return func(args)
-
 
     def do_create(self, arg):
         """This creates instance of a class.
@@ -118,6 +124,7 @@ class HBNBCommand(cmd.Cmd):
         Arg:
             arg(str): This is a class name.
         """
+
         sep = arg.split()
         sto = storage.all()
         flag = 0
