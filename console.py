@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Entry point for the command interpreter and the inclusion of modules"""
 import cmd
+import re
 from models.base_model import BaseModel
 from models import storage
 from datetime import datetime
@@ -155,7 +156,7 @@ class HBNBCommand(cmd.Cmd):
         elif len(info) < 2:
             print("** instance id missing **")
 
-        elif len(info) == 2:
+        elif len(info) >= 2:
             for key in my_dict.keys():
                 mid = key.split(".")
                 if info[1] == mid[1]:
@@ -164,22 +165,22 @@ class HBNBCommand(cmd.Cmd):
             if flag == 0:
                 print("** no instance found **")
 
-        elif len(info) < 3:
-            print("** attribute name missing **")
+            elif len(info) < 3:
+                print("** attribute name missing **")
 
-        elif len(info) < 4:
-            print("** value missing **")
+            elif len(info) < 4:
+                print("** value missing **")
 
-        else:
-            va = info[3].replace('"', "")
-            my_dict = my_dict[f"{info[0]}.{info[1]}"]
-            try:
-                typ = type(my_dict.__class__.__dict__[info[2]])
-                my_dict.__dict__[info[2]] = typ(va)
-            except KeyError:
-                my_dict.__dict__[info[2]] = va
-            my_dict.__dict__['updated_at'] = datetime.now()
-            storage.save()
+            else:
+                va = info[3].replace('"', "")
+                my_dict = my_dict[f"{info[0]}.{info[1]}"]
+                try:
+                    typ = type(my_dict.__class__.__dict__[info[2]])
+                    my_dict.__dict__.update({info[2]: typ(va)})
+                except KeyError:
+                    my_dict.__dict__.update({info[2]: va})
+                my_dict.__dict__['updated_at'] = datetime.now()
+                storage.save()
 
 
 if __name__ == '__main__':
