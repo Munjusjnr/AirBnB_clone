@@ -35,6 +35,35 @@ class HBNBCommand(cmd.Cmd):
         """When nothing is entered"""
         pass
 
+    def onecmd(self, line):
+        """Every command passes here before getting to their functions"""
+        command, args, line = self.parseline(line)
+
+        if not line:
+            return self.emptyline()
+
+        if command is None:
+            return self.default(line)
+
+        self.lastcommand = line
+        if command == '':
+            return self.default(line)
+
+        else:
+            try:
+                line1 = line.replace("()", "")
+                my_list = line1.split(".")
+                meth = getattr(self, 'do_' + my_list[1])
+                return meth(my_list[0])
+            except Exception as e:
+                pass
+            try:
+                func = getattr(self, 'do_' + command)
+            except AttributeError:
+                return self.default(line)
+            return func(args)
+
+
     def do_create(self, arg):
         """This creates instance of a class.
 
