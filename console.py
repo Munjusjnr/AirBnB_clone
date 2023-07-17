@@ -55,6 +55,23 @@ class HBNBCommand(cmd.Cmd):
                     my_list = line1.split(".")
                     meth = getattr(self, 'do_' + my_list[1])
                     return meth(my_list[0])
+
+                elif ',' in line:
+                    new = (line.replace('(', '')
+                               .replace('"', ' ')
+                               .replace(')', '')
+                               .replace(',', ''))
+                    leep = new.split(".")
+                    vex = leep[1].split()
+                    new_method = getattr(self, 'do_' + vex[0])
+                    cmd_args = ''
+                    cmd_args += leep[0]
+                    for i in vex:
+                        if i == vex[0]:
+                            continue
+                        cmd_args += ' ' + i
+                    return new_method(cmd_args)
+
                 else:
                     ln = line.replace('(', '').replace('"', ' ').replace(')',
                                                                          '')
