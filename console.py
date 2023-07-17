@@ -209,6 +209,17 @@ class HBNBCommand(cmd.Cmd):
                 my_dict.__dict__['updated_at'] = datetime.now()
                 storage.save()
 
+    def do_count(self, arg):
+        count = 0
+        my_dict = storage.all()
+
+        for key, val in my_dict.items():
+            classname = key.split(".")
+            if arg == classname[0]:
+                count += 1
+
+        print(count)
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
