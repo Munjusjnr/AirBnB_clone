@@ -16,7 +16,7 @@ class TestFileStorage(unittest.TestCase):
     """Unit Testing implementation for the filestorage file"""
     def setUp(self):
         """This method runs before each test case."""
-        self.file_path = "test_file.json"
+        self.file_path = "file.json"
         FileStorage._FileStorage__file_path = self.file_path
         self.storage = FileStorage()
         storage.__objects = {}
@@ -108,7 +108,7 @@ class TestFileStorage(unittest.TestCase):
 
     def test_file_path(self):
         """Test if the __file_path attribute has the correct value"""
-        path = "test_file.json"
+        path = "file.json"
         self.assertEqual(self.storage._FileStorage__file_path, path)
 
     def test_base_model_save(self):
@@ -116,7 +116,8 @@ class TestFileStorage(unittest.TestCase):
         obj = BaseModel()
         initial_updated_at = obj.updated_at
         obj.save()
-        self.assertNotEqual(initial_updated_at, obj.updated_at)
+        after_update = obj.updated_at
+        self.assertNotEqual(initial_updated_at, after_update)
 
 
 if __name__ == "__main__":
