@@ -74,13 +74,12 @@ class HBNBCommand(cmd.Cmd):
 
         elif len(info) == 2:
             for key in my_dict.keys():
-                mid = key.split(".")
-                if info[1] == mid[1]:
+                given_inst = info[0] + '.' + info[1]
+                if given_inst == key:
                     flag = 1
                     break
             if flag == 1:
-                val = mid[0] + '.' + mid[1]
-                print(my_dict[val])
+                print(my_dict[key])
             else:
                 print("** no instance found **")
 
@@ -105,13 +104,12 @@ class HBNBCommand(cmd.Cmd):
 
         elif len(sep) == 2:
             for key in sto.keys():
-                my_id = key.split(".")
-                if sep[1] == my_id[1]:
+                given_inst = sep[0] + '.' + sep[1]
+                if given_inst == key:
                     flag = 1
                     break
             if flag == 1:
-                val = my_id[0] + '.' + my_id[1]
-                del sto[val]
+                del sto[key]
                 storage.save()
             else:
                 print("** no instance found **")
@@ -158,8 +156,8 @@ class HBNBCommand(cmd.Cmd):
 
         elif len(info) >= 2:
             for key in my_dict.keys():
-                mid = key.split(".")
-                if info[1] == mid[1]:
+                given_inst = info[0] + '.' + info[1]
+                if given_inst == key:
                     flag = 1
                     break
             if flag == 0:
