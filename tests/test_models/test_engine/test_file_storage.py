@@ -10,6 +10,7 @@ import json
 import models
 from models.base_model import BaseModel
 from models import FileStorage
+from datetime import datetime
 
 
 class TestFileStorage(unittest.TestCase):
@@ -19,7 +20,7 @@ class TestFileStorage(unittest.TestCase):
         self.file_path = "file.json"
         FileStorage._FileStorage__file_path = self.file_path
         self.storage = FileStorage()
-        storage.__objects = {}
+        self.storage.__objects = {}
 
     def tearDown(self):
         """This method runs after each test case, cleaning up resources."""
@@ -108,8 +109,8 @@ class TestFileStorage(unittest.TestCase):
 
     def test_file_path(self):
         """Test if the __file_path attribute has the correct value"""
-        path = "file.json"
-        self.assertEqual(self.storage._FileStorage__file_path, path)
+        self.assertIsInstance(self.storage._FileStorage__file_path, str)
+        self.assertEqual(self.storage._FileStorage__file_path, self.file_path)
 
     def test_base_model_save(self):
         """Test if BaseModel's save method updates the updated_at attribute"""
@@ -118,6 +119,8 @@ class TestFileStorage(unittest.TestCase):
         obj.save()
         after_update = obj.updated_at
         self.assertNotEqual(initial_updated_at, after_update)
+        self.assertIsInstance(obj.updated_at, datetime)
+        self.assertIsInstance(obj.created_at, datetime)
 
     def test_file_path_override(self):
         """Test if the __file_path attribute is set to None in the subclass"""

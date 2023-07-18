@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """Entry point for the command interpreter and the inclusion of modules"""
 import cmd
-import re
 from models.base_model import BaseModel
 from models import storage
 from datetime import datetime
@@ -34,6 +33,59 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         """When nothing is entered"""
         pass
+
+    def onecmd(self, line):
+        """Every command passes here before getting to their functions"""
+        command, args, line = self.parseline(line)
+
+        if not line:
+            return self.emptyline()
+
+        if command is None:
+            return self.default(line)
+
+        self.lastcommand = line
+        if command == '':
+            return self.default(line)
+
+        else:
+            try:
+                if '("' not in line:
+                    line1 = line.replace('()', '')
+                    my_list = line1.split(".")
+                    meth = getattr(self, 'do_' + my_list[1])
+                    return meth(my_list[0])
+
+                elif ',' in line:
+                    new = (line.replace('(', '')
+                               .replace('"', ' ')
+                               .replace(')', '')
+                               .replace(',', ''))
+                    leep = new.split(".")
+                    vex = leep[1].split()
+                    new_method = getattr(self, 'do_' + vex[0])
+                    cmd_args = ''
+                    cmd_args += leep[0]
+                    for i in vex:
+                        if i == vex[0]:
+                            continue
+                        cmd_args += ' ' + i
+                    return new_method(cmd_args)
+
+                else:
+                    ln = line.replace('(', '').replace('"', ' ').replace(')',
+                                                                         '')
+                    my_ln = ln.split(".")
+                    nxt = my_ln[1].split()
+                    nw_meth = getattr(self, 'do_' + nxt[0])
+                    return nw_meth(my_ln[0] + ' ' + nxt[1])
+            except Exception as e:
+                pass
+            try:
+                func = getattr(self, 'do_' + command)
+            except AttributeError:
+                return self.default(line)
+            return func(args)
 
     def do_create(self, arg):
         """This creates instance of a class.
@@ -89,6 +141,7 @@ class HBNBCommand(cmd.Cmd):
         Arg:
             arg(str): This is a class name.
         """
+
         sep = arg.split()
         sto = storage.all()
         flag = 0
@@ -179,6 +232,17 @@ class HBNBCommand(cmd.Cmd):
                     my_dict.__dict__.update({info[2]: va})
                 my_dict.__dict__['updated_at'] = datetime.now()
                 storage.save()
+
+    def do_count(self, arg):
+        count = 0
+        my_dict = storage.all()
+
+        for key, val in my_dict.items():
+            classname = key.split(".")
+            if arg == classname[0]:
+                count += 1
+
+        print(count)
 
 
 if __name__ == '__main__':
