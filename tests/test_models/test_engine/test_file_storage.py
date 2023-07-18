@@ -119,6 +119,11 @@ class TestFileStorage(unittest.TestCase):
         after_update = obj.updated_at
         self.assertNotEqual(initial_updated_at, after_update)
 
+    def test_file_path_override(self):
+        """Test if the __file_path attribute is set to None in the subclass"""
+        file_storage_instance = FileStorage()
+        self.assertIsNotNone(file_storage_instance._FileStorage__file_path)
+
 
 if __name__ == "__main__":
     unittest.main()
