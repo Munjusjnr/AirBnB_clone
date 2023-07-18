@@ -122,6 +122,18 @@ class TestFileStorage(unittest.TestCase):
         self.assertIsInstance(obj.updated_at, datetime)
         self.assertIsInstance(obj.created_at, datetime)
 
+    def test_file_path_override(self):
+        """Test if the __file_path attribute is set to None in the subclass"""
+        file_storage_instance = FileStorage()
+        self.assertIsNotNone(file_storage_instance._FileStorage__file_path)
+
+    def test_init(self):
+        """Testing init constructor"""
+        f = FileStorage()
+        obj, path = f._FileStorage__objects, f._FileStorage__file_path
+
+        self.assertIsInstance(obj, dict)
+        self.assertIsInstance(path, str)
 
 if __name__ == "__main__":
     unittest.main()
