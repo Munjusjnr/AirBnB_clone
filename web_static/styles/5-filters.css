@@ -1,0 +1,35 @@
+/* css file for a class filters */
+.filters {
+	color: black;
+	height: 70px;
+	width: 100%;
+	border: 1px solid #DDDDDD;
+	border-radius: 4px;
+}
+.locations,
+.amenities {
+	display: inline-block;
+	height: 100%;
+	width: 25%;
+	border-right: 1px solid #DDDDDD;
+	margin-left: 30px;
+}
+
+.locations h3,
+.amenities h3 {
+	font-weight: 600;
+	margin: 0;
+	margin-top: 12px;
+
+}
+
+
+.locations h4,
+.amenities h4 {
+	font-weight: 400;
+	font-size: 14px;
+	margin: 0;
+}
+.amenities {
+	border-right: none;
+}
