@@ -62,7 +62,7 @@
 .popover h2 {
 	font-size: 16px;
 	margin-bottom: 0%;
-	margin-left: -20px;
+	margin-left: -25px;
 }
 
 li {
@@ -76,5 +76,5 @@ li {
 }
 .popover li {
 	padding: 4px;
-	margin-left: 40px;
+	margin-left: -8px;
 }
